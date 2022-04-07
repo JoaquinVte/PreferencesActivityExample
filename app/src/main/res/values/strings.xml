@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">PreferencesActivityExample</string>
+    <string name="standard">Standard</string>
+    <string name="metric">Metric</string>
+    <string name="imperial">Imperial</string>
+    <string name="spanish">Español</string>
+    <string name="english">English</string>
+    <string name="currently">Actualmente </string>
+    <string name="settings">Settings</string>
+</resources>

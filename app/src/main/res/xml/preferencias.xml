@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+    <PreferenceCategory android:title="Peticiones">
+        <EditTextPreference
+            android:defaultValue="389"
+            android:inputType="number"
+            android:key="ldapServerPort"
+            android:summary="Ejemplo EditTextPreference"
+            android:title="EditTextPreference" />
+
+        <CheckBoxPreference
+            android:defaultValue="false"
+            android:key="previewImage"
+            android:summary="Ejemplo de CheckBoxPreference"
+            android:title="CheckBoxPreference" />
+
+        <ListPreference
+            android:defaultValue="standard"
+            android:entries="@array/unidades_entries"
+            android:entryValues="@array/unidades_values"
+            android:key="unidades"
+            android:summary="Unidades en"
+            android:title="Unidades" />
+    </PreferenceCategory>
+</androidx.preference.PreferenceScreen>
