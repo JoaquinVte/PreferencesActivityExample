@@ -8,16 +8,41 @@ import android.preference.PreferenceManager;
 
 public class GestionPreferencias {
 
-    private static SharedPreferences pref;
+    private SharedPreferences pref;
+    private static GestionPreferencias gestionPreferencias;
 
-    private static void inicializa(Context context) {
+    private GestionPreferencias(){
+
+    }
+
+    public static GestionPreferencias getInstance(){
+        if(gestionPreferencias==null)
+            gestionPreferencias = new GestionPreferencias();
+        return gestionPreferencias;
+    }
+
+    private void inicializa(Context context) {
         if (pref == null)
             pref = PreferenceManager.getDefaultSharedPreferences(context);
     }
 
-    public static String getUnidades(Context context){
+    public String getUnidades(Context context){
         inicializa(context);
         return pref.getString("unidades","standard");
+    }
+
+    public String getEditTextPreference(Context context){
+        inicializa(context);
+        return pref.getString("editTextPreferenceKey","389");
+    }
+
+    public boolean getCheckBoxPreference(Context context){
+        inicializa(context);
+        return pref.getBoolean("checkBoxPreferenceKey",false);
+    }
+    public String getTheme(Context context){
+        inicializa(context);
+        return pref.getString(context.getString(R.string.settings_theme_key),ThemeSetup.Mode.DEFAULT.name());
     }
 
 

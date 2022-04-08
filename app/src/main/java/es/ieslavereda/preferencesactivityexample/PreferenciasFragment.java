@@ -1,21 +1,17 @@
 package es.ieslavereda.preferencesactivityexample;
 
 
+import android.os.Build;
 import android.os.Bundle;
-import android.preference.PreferenceFragment;
-import android.text.InputType;
-import android.widget.EditText;
-import android.widget.Toast;
 
-import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
 import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
-
-import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 
 public class PreferenciasFragment extends PreferenceFragmentCompat {
 
@@ -24,24 +20,45 @@ public class PreferenciasFragment extends PreferenceFragmentCompat {
 
         setPreferencesFromResource(R.xml.preferencias, rootKey);
 
-        final ListPreference unidades = (ListPreference) findPreference("unidades");
-        final String[] unidadesEntries = getResources().getStringArray(R.array.unidades_entries);
-        final String[] unidadesValues = getResources().getStringArray(R.array.unidades_values);
-        int pos  = (new ArrayList<String>(Arrays.asList(unidadesValues))).indexOf(String.valueOf(GestionPreferencias.getUnidades(getContext())));
+        // Modificacion de la vista de preferencias por codigo
+        // ListPreference
+        final ListPreference unidades = findPreference("unidades");
+        final List<String> unidades_entries = Arrays.asList(getResources().getStringArray(R.array.unidades_entries));
+        final List<String> unidades_values = Arrays.asList(getResources().getStringArray(R.array.unidades_values));
 
-        unidades.setSummary(unidades.getSummary() + "\n" + getResources().getString(R.string.currently) + " " + unidadesEntries[pos]);
+        int pos  = unidades_values.indexOf(GestionPreferencias.getInstance().getUnidades(getContext()));
+
+        unidades.setSummary("Unidades en " + unidades_entries.get(pos));
         unidades.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
             @Override
             public boolean onPreferenceChange(Preference preference, Object newValue) {
 
-                int pos  = (new ArrayList<String>(Arrays.asList(unidadesValues))).indexOf(newValue);
-                unidades.setSummary("Unidades en " + "\n" + getResources().getString(R.string.currently) + " " + unidadesEntries[pos]);
+                int pos  = unidades_values.indexOf(newValue);
+                unidades.setSummary("Unidades en " + unidades_entries.get(pos));
 
                 return true;
             }
         });
 
+        // EditTextPreference
+        final EditTextPreference editTextPreference = findPreference("editTextPreferenceKey");
+        editTextPreference.setSummary("Actualmente: " + GestionPreferencias.getInstance().getEditTextPreference(getContext()));
+        editTextPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
+            @Override
+            public boolean onPreferenceChange(Preference preference, Object newValue) {
+                editTextPreference.setSummary("Actualmente: " + newValue);
+                return true;
+            }
+        });
+
+        // Theme preferences with ListPreference
+        ListPreference themePreference = getPreferenceManager().findPreference(getString(R.string.settings_theme_key));
+        if (themePreference.getValue() == null) {
+            themePreference.setValue(ThemeSetup.Mode.DEFAULT.name());
+        }
+        themePreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            ThemeSetup.applyTheme(ThemeSetup.Mode.valueOf((String) newValue));
+            return true;
+        });
     }
-
-
 }
