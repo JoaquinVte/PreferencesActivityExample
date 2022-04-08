@@ -22,16 +22,11 @@ public class MainActivity extends AppCompatActivity {
         TextView textView = findViewById(R.id.mis_preferencias);
         Button button = findViewById(R.id.button);
 
-        button.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                textView.setText("Preferencias \n"+
-                        "EditTextPreferences: " + GestionPreferencias.getInstance().getEditTextPreference(getApplicationContext()) + "\n" +
-                        "CheckBoxPreferences: " + GestionPreferencias.getInstance().getCheckBoxPreference(getApplicationContext()) + "\n" +
-                        "ListPreferences: " + GestionPreferencias.getInstance().getUnidades(getApplicationContext()) +"\n" +
-                        "Theme: " + GestionPreferencias.getInstance().getTheme(getApplicationContext()));
-            }
-        });
+        button.setOnClickListener(view -> textView.setText("Preferencias \n"+
+                "EditTextPreferences: " + GestionPreferencias.getInstance().getEditTextPreference(getApplicationContext()) + "\n" +
+                "CheckBoxPreferences: " + GestionPreferencias.getInstance().getCheckBoxPreference(getApplicationContext()) + "\n" +
+                "ListPreferences: " + GestionPreferencias.getInstance().getUnidades(getApplicationContext()) +"\n" +
+                "Theme: " + GestionPreferencias.getInstance().getTheme(getApplicationContext())));
 
     }
 

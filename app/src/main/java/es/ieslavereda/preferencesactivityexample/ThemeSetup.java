@@ -1,11 +1,9 @@
 package es.ieslavereda.preferencesactivityexample;
 
 import android.content.Context;
-import android.content.SharedPreferences;
 import android.os.Build;
 
 import androidx.appcompat.app.AppCompatDelegate;
-import androidx.preference.PreferenceManager;
 
 public final class ThemeSetup {
 

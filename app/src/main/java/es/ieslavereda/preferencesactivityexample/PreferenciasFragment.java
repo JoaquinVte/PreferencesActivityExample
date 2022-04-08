@@ -1,13 +1,10 @@
 package es.ieslavereda.preferencesactivityexample;
 
 
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.appcompat.app.AppCompatDelegate;
 import androidx.preference.EditTextPreference;
 import androidx.preference.ListPreference;
-import androidx.preference.Preference;
 import androidx.preference.PreferenceFragmentCompat;
 
 import java.util.Arrays;
@@ -29,26 +26,20 @@ public class PreferenciasFragment extends PreferenceFragmentCompat {
         int pos  = unidades_values.indexOf(GestionPreferencias.getInstance().getUnidades(getContext()));
 
         unidades.setSummary("Unidades en " + unidades_entries.get(pos));
-        unidades.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
+        unidades.setOnPreferenceChangeListener((preference, newValue) -> {
 
-                int pos  = unidades_values.indexOf(newValue);
-                unidades.setSummary("Unidades en " + unidades_entries.get(pos));
+            int pos1 = unidades_values.indexOf(newValue);
+            unidades.setSummary("Unidades en " + unidades_entries.get(pos1));
 
-                return true;
-            }
+            return true;
         });
 
         // EditTextPreference
         final EditTextPreference editTextPreference = findPreference("editTextPreferenceKey");
         editTextPreference.setSummary("Actualmente: " + GestionPreferencias.getInstance().getEditTextPreference(getContext()));
-        editTextPreference.setOnPreferenceChangeListener(new Preference.OnPreferenceChangeListener() {
-            @Override
-            public boolean onPreferenceChange(Preference preference, Object newValue) {
-                editTextPreference.setSummary("Actualmente: " + newValue);
-                return true;
-            }
+        editTextPreference.setOnPreferenceChangeListener((preference, newValue) -> {
+            editTextPreference.setSummary("Actualmente: " + newValue);
+            return true;
         });
 
         // Theme preferences with ListPreference
